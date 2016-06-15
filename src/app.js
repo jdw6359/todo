@@ -4,6 +4,9 @@ var express = require('express');
 var router = require('./api');
 var app = express();
 
+// Bootstrap the database
+require('./database');
+
 // Serve up static html content
 app.use('/', express.static('public'));
 
