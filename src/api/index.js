@@ -10,6 +10,8 @@ var Todo = require('../models/todo');
 //var todos = require('../../mock/todos.json');
 
 // Define routes for api
+
+// GET /todos
 router.get('/todos', function(req, res) {
     Todo.find({}, function(err, todos) {
         if(err) {
@@ -19,7 +21,18 @@ router.get('/todos', function(req, res) {
     });
 });
 
-// TODO: Add a POST route to create new entries
+//POST /todos
+router.post('/todos', function(req, res) {
+    var todo = req.body;
+    Todo.create(todo, function(err, todo) {
+        if(err) {
+            return res.status(500).json({message: err.message});
+        }
+        res.json({todo: todo, message: 'Todo created!'});
+    })
+})
+
+
 // TODO: Add a PUT route to update existing entries
 // TODO: Add a DELETE route to delete existing entries
 
