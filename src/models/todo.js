@@ -8,6 +8,6 @@ var todoSchema = new mongoose.Schema({
 	completed: Boolean
 });
 
-var model = new mongoose.Model('Todo', todoSchema);
+var model = mongoose.model('Todo', todoSchema);
 
 module.exports = model;
