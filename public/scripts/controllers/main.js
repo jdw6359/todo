@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('todoListApp')
-       .controller('mainCtrl', function($scope, dataService){
+       .controller('mainCtrl', function($scope, todoService){
 
-  dataService.getTodos(function(response){
-    $scope.todos = response.data;
+  todoService.getTodos(function(response){
+    $scope.todos = response.data.todos;
   });
   
   $scope.addTodo = function() {
