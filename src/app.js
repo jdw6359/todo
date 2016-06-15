@@ -6,6 +6,7 @@ var app = express();
 
 // Bootstrap the database
 require('./database');
+require('./seed');
 
 // Serve up static html content
 app.use('/', express.static('public'));

@@ -7,7 +7,7 @@ var router = express.Router();
 var Todo = require('../models/todo');
 
 // Grab the mock data
-var todos = require('../../mock/todos.json');
+//var todos = require('../../mock/todos.json');
 
 // Define routes for api
 router.get('/todos', function(req, res) {
