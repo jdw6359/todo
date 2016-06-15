@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('todoListApp')
-.service('todoService', function($http) {
+TodoService.$inject = ['$http'];
+function TodoService($http) {
+  
   this.getTodos = function(cb) {
     $http.get('/api/todos').then(cb);
   };
@@ -13,5 +14,6 @@ angular.module('todoListApp')
   this.saveTodos = function(todos) {
     console.log("I saved " + todos.length + " todos!");
   };
-  
-});
+}
+
+module.exports = TodoService;

@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('todoListApp')
-       .controller('mainCtrl', function($scope, todoService){
+MainController.$inject = ['$scope', 'TodoService'];
+function MainController($scope, TodoService) {
 
-  todoService.getTodos(function(response){
+  TodoService.getTodos(function(response){
     $scope.todos = response.data.todos;
   });
   
@@ -13,5 +13,6 @@ angular.module('todoListApp')
       completed: false
     });
   };
-  
-})
+}
+
+module.exports = MainController;

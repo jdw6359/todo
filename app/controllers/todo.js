@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('todoListApp')
-       .controller('todoCtrl', function($scope, todoService) {
+TodoController.$inject = ['$scope', 'TodoService'];
+function TodoController($scope, TodoService) {
   
   $scope.deleteTodo = function(todo, index) {
     $scope.todos.splice(index, 1);
-    todoService.deleteTodo(todo);
+    TodoService.deleteTodo(todo);
   };
   
   $scope.saveTodos = function() {
@@ -14,6 +14,8 @@ angular.module('todoListApp')
         return todo
       };
     })
-    todoService.saveTodos(filteredTodos);
+    TodoService.saveTodos(filteredTodos);
   }; 
-});
+}
+
+module.exports = TodoController;
