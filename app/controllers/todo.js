@@ -14,8 +14,15 @@ function TodoController($scope, TodoService) {
         return todo
       };
     })
-    TodoService.saveTodos(filteredTodos);
-  }; 
+    TodoService.saveTodos(filteredTodos).finally($scope.resetTodoState());
+  };
+
+  $scope.resetTodoState = function() {
+    console.log('reset todo state being invoked');
+    $scope.todos.forEach(function(todo) {
+      todo.edited = false;
+    })
+  }
 }
 
 module.exports = TodoController;

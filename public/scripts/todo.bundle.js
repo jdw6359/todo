@@ -70,8 +70,15 @@ webpackJsonp([0],[
 	        return todo
 	      };
 	    })
-	    TodoService.saveTodos(filteredTodos);
-	  }; 
+	    TodoService.saveTodos(filteredTodos).finally($scope.resetTodoState());
+	  };
+
+	  $scope.resetTodoState = function() {
+	    console.log('reset todo state being invoked');
+	    $scope.todos.forEach(function(todo) {
+	      todo.edited = false;
+	    })
+	  }
 	}
 
 	module.exports = TodoController;
@@ -123,8 +130,8 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	TodoService.$inject = ['$http'];
-	function TodoService($http) {
+	TodoService.$inject = ['$http', '$q'];
+	function TodoService($http, $q) {
 	  
 	  this.getTodos = function(cb) {
 	    $http.get('/api/todos').then(cb);
@@ -135,7 +142,22 @@ webpackJsonp([0],[
 	  };
 	  
 	  this.saveTodos = function(todos) {
-	    console.log("I saved " + todos.length + " todos!");
+	    var queue = [];
+	    todos.forEach(function(todo) {
+	      var request;
+	      if(!todo._id) {
+	        request = $http.post('/api/todos', todo);
+	      } else {
+	        request = $http.put('/api/todos/' + todo._id, todo).then(function(result) {
+	          todo = result.data.todo;
+	          return todo;
+	        });
+	      }
+	      queue.push(request);
+	    });
+	    return $q.all(queue).then(function(results) {
+	      console.log(results);
+	    })
 	  };
 	}
 
